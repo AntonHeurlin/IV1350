@@ -6,6 +6,7 @@ public class DbHandler {
 
     public void SendAccountingInformation(Transaction transaction){
         AccountingInformationDTO accountingInformationDTO = new AccountingInformationDTO(transaction);
+
     }
 
     public void SendInventoryInformation(Transaction transaction){

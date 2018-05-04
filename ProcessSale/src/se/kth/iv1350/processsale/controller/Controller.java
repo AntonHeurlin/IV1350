@@ -5,15 +5,12 @@ import se.kth.iv1350.processsale.model.Transaction;
 import se.kth.iv1350.processsale.integration.ItemRegister;
 import se.kth.iv1350.processsale.integration.ItemDTO;
 import se.kth.iv1350.processsale.model.Receipt;
+import se.kth.iv1350.processsale.model.TransactionDTO;
 
 public class Controller {
     private Transaction currentTransaction;
     private ItemRegister currentItemRegistry;
-    private ItemDTO currentItem;
-    private Receipt currentReceipt;
     private DbHandler dbHandler;
-    //private Receipt currentReceipt;
-    //public string returnString;
 
     /**
      * Constructor for an instance of an Object of the Class Controller.
@@ -21,10 +18,7 @@ public class Controller {
     public Controller() {
         this.currentTransaction = null;
         this.currentItemRegistry = new ItemRegister();
-        this.currentItem = null;
-        this.currentReceipt = null;
         this.dbHandler = new DbHandler();
-        //this.returnString = null;
     }
 
     /**
@@ -37,21 +31,12 @@ public class Controller {
     /**
      * adds an item to the transaction currently being handled
      * @param barcode is the identifier of the object the cashier have tried to add to
-     *                a transaction.
+     *                a transaction which is later checked against itemDTOs in the itemRegister.
      */
-    public void enterItem(int barcode){
-        this.currentItem = currentItemRegistry.searchItem(barcode);
-        currentTransaction.addItem(this.currentItem);
-    }
+    public TransactionDTO enterItem(int barcode){
+        ItemDTO currentItem = currentItemRegistry.searchItem(barcode);
+        return currentTransaction.addItem(currentItem);
 
-    /**
-     * method that returns the totalcost of a transaction when the cashier indicates all desired
-     * items have been scanned
-     * @return total cost of the transaction, also shows tax amount.
-     */
-    public String finalizeTransaction(){
-        return this.currentTransaction.getTotalCost().finalizeTransaction();
-        //return this.returnString = "[Total Cost: " +currentTransaction.totalCost.totalCost +", Included tax amount: " +currentTransaction.totalCost.getTaxAmount() +"]";
     }
 
     /**
@@ -60,32 +45,20 @@ public class Controller {
      * @param paymentAmount
      * @return
      */
-    public double pay(double paymentAmount){
-        this.currentReceipt = new Receipt(this.currentTransaction);
-        this.currentReceipt.generateReceipt();
+    public Receipt pay(double paymentAmount){
+        Receipt currentReceipt = new Receipt(this.currentTransaction, paymentAmount);
         this.sendTransactionInformation(this.currentTransaction);
-        this.currentTransaction.getTotalCost().calculateChange(paymentAmount);
-        return (int)(this.currentTransaction.getTotalCost().changeAmount);
+        return currentReceipt;
     }
 
-    public void sendTransactionInformation(Transaction currentTransaction){
+    /**
+     * Sends information to the DbHandler about the current transaction which it turns into specific DTO packages which shall be delivered
+     * to externalSystems.
+     * @param currentTransaction
+     */
+    private void sendTransactionInformation(Transaction currentTransaction){
         this.dbHandler.SendAccountingInformation(currentTransaction);
         this.dbHandler.SendInventoryInformation(currentTransaction);
     }
 
-    public ItemRegister getCurrentItemRegistry() {
-        return currentItemRegistry;
-    }
-
-    public ItemDTO getCurrentItem() {
-        return currentItem;
-    }
-
-    public Transaction getCurrentTransaction(){
-        return this.currentTransaction;
-    }
-
-    public Receipt getCurrentReceipt() {
-        return currentReceipt;
-    }
 }

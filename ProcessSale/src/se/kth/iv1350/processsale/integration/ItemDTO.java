@@ -21,8 +21,7 @@ public class ItemDTO {
      * Method that adds the attributes of a given itemDTO to an explanatory String.
      * @return a string containing an explanation of a specific items attributes.
      */
-    public String itemDescription()
-    {
+    public String toString(){
         String itemDescription = "";
         itemDescription = "(ItemName: " +this.itemName +", ItemPrice: " +this.itemPrice +", ItemBarcode: " +this.itemBarcode +")";
         return itemDescription;
