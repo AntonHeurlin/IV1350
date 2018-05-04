@@ -1,9 +1,11 @@
 package se.kth.iv1350.processsale.model;
 
+import se.kth.iv1350.processsale.integration.ItemDTO;
+
 public class Cost {
-    public double totalCost;
-    public double taxAmount;
-    public double changeAmount;
+    private double totalCost;
+    private double taxAmount;
+    private double changeAmount;
 
     public final double TAXMODIFIER = 0.30;
 
@@ -14,13 +16,13 @@ public class Cost {
      *                           a process sale.
      */
     public Cost(Transaction currentTransaction){
-        int i;
-        for(i = 0; i < currentTransaction.getRegisteredItems().length; i++){
-            this.totalCost += currentTransaction.getRegisteredItems()[i].getItemPrice();
+        for(ItemDTO item : currentTransaction.getRegisteredItems()){
+            this.totalCost += item.getItemPrice();
         }
         calculateTax(this.totalCost);
         this.changeAmount = 0;
     }
+
 
     /**
      * Method calculates a given taxAmount depending on a specific total cost amount.
@@ -41,15 +43,6 @@ public class Cost {
         return  this.changeAmount = (totalCost - paymentAmount)*-1;
     }
 
-    /**
-     * toString method of the Cost class.
-     * @return a String showing total cost and tax amount of a transaction.
-     */
-    public String finalizeTransaction(){
-        String totalCost = "[Total Cost: " +(int)(this.totalCost) +":-" +", Included tax amount: " +(int)(this.taxAmount) +":- " +"]";
-        return totalCost;
-    }
-
     public double getTaxAmount(){
         return this.taxAmount;
     }
@@ -57,6 +50,7 @@ public class Cost {
     public double getChangeAmount(){
         return this.changeAmount;
     }
+
     public double getTotalCost(){
         return this.totalCost;
     }
