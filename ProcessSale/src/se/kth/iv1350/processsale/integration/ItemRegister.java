@@ -17,7 +17,7 @@ public class ItemRegister {
     }
 
     /**
-     * Public method that searches through the items in an array in order to find a item with matching barcode
+     * method that searches through the items in an array in order to find a item with matching barcode
      * @param barcode is the barcode which a Cashier enters into a system in order to add it to a transaction.
      * @return a specific itemDTO object if the barcode finds a match, else returns null.
      */
@@ -32,6 +32,10 @@ public class ItemRegister {
         return null;
     }
 
+    /**
+     *
+     * @return the current item register.
+     */
     public ItemDTO[] getItemRegister() {
         return itemRegister;
     }

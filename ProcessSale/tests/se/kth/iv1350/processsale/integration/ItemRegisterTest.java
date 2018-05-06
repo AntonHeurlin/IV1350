@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class ItemRegisterTest {
 
     @Test
-    public void TestsearchItem() {
+    public void testSearchItem() {
         ItemRegister itemRegisterTest = new ItemRegister();
         ItemDTO bananTest = new ItemDTO("Banan", 12, 1111);
         itemRegisterTest.searchItem(1111);

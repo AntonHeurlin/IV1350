@@ -2,12 +2,15 @@ package se.kth.iv1350.processsale.model;
 
 import se.kth.iv1350.processsale.integration.ItemDTO;
 
+/**
+ * Represents the cost of a Transaction
+ */
 public class Cost {
     private double totalCost;
     private double taxAmount;
     private double changeAmount;
 
-    public final double TAXMODIFIER = 0.30;
+    private final double TAXMODIFIER = 0.30;
 
     /**
      * Constructor for an Cost object, determines the totalCost based on the specific item that has been registered
@@ -36,17 +39,25 @@ public class Cost {
      * This method calculates the amount of change a customer shall get in return after paying for a transaction
      * with a specific amount of money.
      * @param paymentAmount this is the amount the customer has payed for the transaction.
-     * @return this returns the value of change, which is the money a customer shall recieve in return, if he payed
+     * @return this returns the value of change, which is the money a customer shall receive in return, if he payed
      * sufficient funds (solved in another method in a layer above).
      */
     public double calculateChange(double paymentAmount){
         return  this.changeAmount = (totalCost - paymentAmount)*-1;
     }
 
+    /**
+     *
+     * @return the amount of tax which constitutes a part of the total cost of a transaction.
+     */
     public double getTaxAmount(){
         return this.taxAmount;
     }
 
+    /**
+     *
+     * @return the amount of change a customer shall receive after paying for a specific transaction which a particular sum.
+     */
     public double getChangeAmount(){
         return this.changeAmount;
     }
