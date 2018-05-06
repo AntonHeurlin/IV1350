@@ -2,6 +2,9 @@ package se.kth.iv1350.processsale.model;
 
 import se.kth.iv1350.processsale.integration.ItemDTO;
 
+/**
+ * represent a datapackage of necesarry information regarding a specific transaction.
+ */
 public class TransactionDTO {
     private ItemDTO registeredItem;
     private double runningTotal;
@@ -22,10 +25,18 @@ public class TransactionDTO {
         this.changeAmount = totalCost.getChangeAmount();
     }
 
+    /**
+     *
+     * @return tax amount of the total cost of a transaction
+     */
     public double getTaxAmount() {
         return taxAmount;
     }
 
+    /**
+     *
+     * @return the change amount a customer shall receive after paying for a transaction.
+     */
     public double getChangeAmount() {
         return changeAmount;
     }
@@ -34,6 +45,10 @@ public class TransactionDTO {
         return runningTotal;
     }
 
+    /**
+     *
+     * @return the Item which has been added a specific transaction.
+     */
     public ItemDTO getRegisteredItem() {
         return registeredItem;
     }

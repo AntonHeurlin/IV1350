@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class CostTest {
 
     @Test
-    public void TestCost() {
+    public void testCost() {
         Transaction testTransaction = new Transaction();
         ItemDTO testItem = new ItemDTO("Hoegaarden", 27, 1111);
         ItemDTO testItem2 = new ItemDTO("Kronenberg Blanc ", 18, 1212);
@@ -21,7 +21,7 @@ public class CostTest {
     }
 
     @Test
-    public void calculateChange() {
+    public void testCalculateChange() {
         Transaction testTransaction = new Transaction();
         ItemDTO testItem = new ItemDTO("Hoegaarden", 27, 1111);
         ItemDTO testItem2 = new ItemDTO("Kronenberg Blanc ", 18, 1212);

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class TransactionTest {
 
     @Test
-    public void TestaddItem() {
+    public void testAddItem() {
         Transaction testTransaction = new Transaction();
         ItemDTO testItem = new ItemDTO("Hoegaarden", 27, 1111);
         testTransaction.addItem(testItem);
@@ -16,7 +16,7 @@ public class TransactionTest {
     }
 
     @Test
-    public void TestaddItem2() {
+    public void testAddItem2() {
         Transaction testTransaction = new Transaction();
         ItemDTO testItem = new ItemDTO("Hoegaarden", 27, 1111);
         ItemDTO testItem2 = new ItemDTO("Kronenberg Blanc ", 18, 1212);
@@ -26,7 +26,7 @@ public class TransactionTest {
     }
 
     @Test
-    public void TestaddItemTotalCost() {
+    public void testAddItemTotalCost() {
         Transaction testTransaction = new Transaction();
         ItemDTO testItem = new ItemDTO("Hoegaarden", 27, 1111);
         ItemDTO testItem2 = new ItemDTO("Kronenberg Blanc ", 18, 1212);
@@ -39,11 +39,4 @@ public class TransactionTest {
 
     }
 
-    @Test
-    public void getRegisteredItems() {
-    }
-
-    @Test
-    public void getTotalCost() {
-    }
 }

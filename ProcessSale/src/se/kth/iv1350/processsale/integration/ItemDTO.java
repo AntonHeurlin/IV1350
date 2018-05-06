@@ -1,5 +1,8 @@
 package se.kth.iv1350.processsale.integration;
 
+/**
+ * represent a datapackage compiled of data regarding a specific item.
+ */
 public class ItemDTO {
     private String itemName = "";
     private double itemPrice;
@@ -27,14 +30,26 @@ public class ItemDTO {
         return itemDescription;
     }
 
+    /**
+     *
+     * @return the price of a specific item.
+     */
     public double getItemPrice() {
         return this.itemPrice;
     }
 
+    /**
+     *
+     * @return the barcode of a specific item.
+     */
     public int getItemBarcode() {
         return this.itemBarcode;
     }
 
+    /**
+     *
+     * @return the name of a specific item.
+     */
     public String getItemName() {
         return this.itemName;
     }

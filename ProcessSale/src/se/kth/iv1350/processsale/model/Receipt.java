@@ -4,6 +4,9 @@ import se.kth.iv1350.processsale.integration.ItemDTO;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a framework for how a receipt shall look when printing.
+ */
 public class Receipt {
     private String receipt;
     private double changeAmount;
@@ -41,10 +44,18 @@ public class Receipt {
         this.receipt = receiptBuilder.toString();
     }
 
+    /**
+     *
+     * @return the specific change amount a customer shall get in return after paying for a transaction.
+     */
     public double getChangeAmount() {
         return changeAmount;
     }
 
+    /**
+     *
+     * @return the Receipt which has recorded valuable information regarding a transaction.
+     */
     public String getReceipt(){
         return this.receipt;
     }
