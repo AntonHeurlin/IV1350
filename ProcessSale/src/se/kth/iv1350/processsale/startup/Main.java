@@ -2,6 +2,7 @@ package se.kth.iv1350.processsale.startup;
 
 import se.kth.iv1350.processsale.controller.Controller;
 import se.kth.iv1350.processsale.integration.DbHandler;
+import se.kth.iv1350.processsale.view.TotalRevenueDisplay;
 import se.kth.iv1350.processsale.view.View;
 
 /**
@@ -16,6 +17,7 @@ public class Main {
     public static void main(String [] args){
         DbHandler dbHandler = new DbHandler();
         Controller controller = new Controller(dbHandler);
+        controller.addTotalRevenueObserver(new TotalRevenueDisplay());
         View view = new View(controller);
         view.sampleExecution();
     }

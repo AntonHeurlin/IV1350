@@ -1,6 +1,7 @@
 package se.kth.iv1350.processsale.model;
 
 import se.kth.iv1350.processsale.integration.ItemDTO;
+import se.kth.iv1350.processsale.integration.ItemException;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Transaction {
      * Method that's adds an object of the type ItemDTO to a Transaction.
      * @param foundItem this itemDTO is a specific representation of the item a customer wants to buy.
      */
-    public TransactionDTO addItem(ItemDTO foundItem){
+    public TransactionDTO addItem(ItemDTO foundItem) throws ItemException {
         if(foundItem == null){
             return null;
         }

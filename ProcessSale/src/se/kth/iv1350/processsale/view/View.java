@@ -1,8 +1,13 @@
 package se.kth.iv1350.processsale.view;
 
 import se.kth.iv1350.processsale.controller.Controller;
+import se.kth.iv1350.processsale.integration.ItemException;
+import se.kth.iv1350.processsale.integration.OperationFailureException;
 import se.kth.iv1350.processsale.model.Receipt;
 import se.kth.iv1350.processsale.model.TransactionDTO;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /**
  * This class acts as a placeholder for the entire view.
@@ -26,14 +31,60 @@ public class View {
         System.out.println("----Starts a new Transaction----" +"\n");
         this.controller.startTransaction();
         System.out.println("----Cashier Enters Items----" +"\n");
-        TransactionDTO transactionInformation = this.controller.enterItem(1111);
-        printTransactionInfo(transactionInformation);
-        transactionInformation = this.controller.enterItem(1212);
-        printTransactionInfo(transactionInformation);
-        transactionInformation = this.controller.enterItem(1313);
-        printTransactionInfo(transactionInformation);
-        transactionInformation = this.controller.enterItem(1414);
-        printTransactionInfo(transactionInformation);
+        TransactionDTO transactionInformation = null;
+        try {
+            transactionInformation = this.controller.enterItem(1111);
+            printTransactionInfo(transactionInformation);
+        }
+        catch(ItemException itemexception){
+            System.out.println("USER EXCEPTION MESSAGE: ");
+            System.out.println(itemexception.getMessage());
+        }
+        catch(OperationFailureException exception){
+            System.out.println("USER EXCEPTION MESSAGE: ");
+            System.out.println("Operation failed, try again with a different item. If problem persists contact support office.");
+            System.out.println();
+            System.out.println("PROGRAMMER EXCEPTION MESSAGE: ");
+            System.out.println(exception.getMessage());
+        }
+        try {
+            transactionInformation = this.controller.enterItem(1515);
+            printTransactionInfo(transactionInformation);
+        }
+        catch(ItemException itemexception){
+            System.out.println("USER EXCEPTION MESSAGE: ");
+            System.out.println(itemexception.getMessage());
+        }
+        catch(OperationFailureException exception){
+            System.out.println("USER EXCEPTION MESSAGE: ");
+            System.out.println("Operation failed, try again with a different item. If problem persists contact support office.");
+            System.out.println();
+            System.out.println("PROGRAMMER EXCEPTION MESSAGE: ");
+            System.out.println();
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            exception.printStackTrace(pw);
+            System.out.println(sw.toString().toUpperCase());
+
+
+        }
+        try {
+            transactionInformation = this.controller.enterItem(1212);
+            printTransactionInfo(transactionInformation);
+        }
+        catch(ItemException itemexception){
+            System.out.println("USER EXCEPTION MESSAGE: ");
+            System.out.println(itemexception.getMessage());
+        }
+        catch(OperationFailureException exception){
+            System.out.println("USER EXCEPTION MESSAGE: ");
+            System.out.println("Operation failed, try again with a different item. If problem persists contact support office.");
+            System.out.println();
+            System.out.println("PROGRAMMER EXCEPTION MESSAGE: ");
+            System.out.println(exception.getMessage() +"\n");
+            System.out.println();
+        }
+
         System.out.println("----Cashier signals he is done scanning----" +"\n");
         finalizeTransaction(transactionInformation);
         System.out.println("----The Customer pays, Cashier enters payment amount into system.----" +"\n");

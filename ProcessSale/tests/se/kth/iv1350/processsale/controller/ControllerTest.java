@@ -3,6 +3,7 @@ package se.kth.iv1350.processsale.controller;
 import org.junit.Test;
 import se.kth.iv1350.processsale.integration.DbHandler;
 import se.kth.iv1350.processsale.integration.ItemDTO;
+import se.kth.iv1350.processsale.integration.ItemException;
 import se.kth.iv1350.processsale.model.Transaction;
 
 import static org.junit.Assert.*;
@@ -19,7 +20,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void testEnterItem() {
+    public void testEnterItem() throws ItemException {
         DbHandler dbHandler = new DbHandler();
         Controller controller = new Controller(dbHandler);
         controller.startTransaction();
@@ -32,7 +33,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void testPay() {
+    public void testPay() throws ItemException {
         DbHandler dbHandler = new DbHandler();
         Controller controller = new Controller(dbHandler);
         controller.startTransaction();

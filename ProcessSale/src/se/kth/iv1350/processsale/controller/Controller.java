@@ -1,11 +1,8 @@
 package se.kth.iv1350.processsale.controller;
 
-import se.kth.iv1350.processsale.integration.DbHandler;
-import se.kth.iv1350.processsale.model.Transaction;
-import se.kth.iv1350.processsale.integration.ItemRegister;
-import se.kth.iv1350.processsale.integration.ItemDTO;
-import se.kth.iv1350.processsale.model.Receipt;
-import se.kth.iv1350.processsale.model.TransactionDTO;
+import se.kth.iv1350.processsale.integration.*;
+import se.kth.iv1350.processsale.model.*;
+
 
 /**
  * represents a controller which handles method- calls between the user-interface and lower layers of the system.
@@ -14,6 +11,7 @@ public class Controller {
     private Transaction currentTransaction;
     private ItemRegister currentItemRegistry;
     private DbHandler dbHandler;
+    private TotalRevenue totalRevenue;
 
     /**
      * Constructor for an instance of an Object of the Class Controller.
@@ -22,6 +20,7 @@ public class Controller {
         this.currentTransaction = null;
         this.currentItemRegistry = new ItemRegister();
         this.dbHandler = dbHandler;
+        this.totalRevenue = new TotalRevenue();
     }
 
     /**
@@ -35,11 +34,11 @@ public class Controller {
      * adds an item to the transaction currently being handled
      * @param barcode is the identifier of the object the cashier have tried to add to
      *                a transaction which is later checked against itemDTOs in the itemRegister.
+     * @throws ItemException if an item identifier does not have a match in the item register.
      */
-    public TransactionDTO enterItem(int barcode){
+    public TransactionDTO enterItem(int barcode) throws ItemException {
         ItemDTO currentItem = currentItemRegistry.searchItem(barcode);
         return currentTransaction.addItem(currentItem);
-
     }
 
     /**
@@ -50,6 +49,7 @@ public class Controller {
      * and the changeAmount a customer shall receive in return after paying a specific amount.
      */
     public Receipt pay(double paymentAmount){
+        this.totalRevenue.updateTotalRevenueAmount(this.currentTransaction.getTotalCost());
         Receipt currentReceipt = new Receipt(this.currentTransaction, paymentAmount);
         this.sendTransactionInformation(this.currentTransaction);
         return currentReceipt;
@@ -64,6 +64,10 @@ public class Controller {
     private void sendTransactionInformation(Transaction currentTransaction){
         this.dbHandler.SendAccountingInformation(currentTransaction);
         this.dbHandler.SendInventoryInformation(currentTransaction);
+    }
+
+    public void addTotalRevenueObserver(TotalRevenueObserver observer){
+        this.totalRevenue.addTotalRevenueObserver(observer);
     }
 
     /**
